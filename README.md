@@ -24,6 +24,6 @@ doc.WriteTo(os.Stdout)
 
 This is very TODO-level at the moment. Outstanding things are:
 
-- [ ] self-closing tags
+- [ ] handle attributes with no value (e.g. `selected`)
 - [ ] escaping?
 - [ ] a better way to model attributes?

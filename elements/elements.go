@@ -14,18 +14,6 @@ func Title(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("title", attr, children...)
 }
 
-func Base(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("base", attr, children...)
-}
-
-func Link(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("link", attr, children...)
-}
-
-func Meta(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("meta", attr, children...)
-}
-
 func Style(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("style", attr, children...)
 }
@@ -92,10 +80,6 @@ func Address(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 
 func P(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("p", attr, children...)
-}
-
-func Hr(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("hr", attr, children...)
 }
 
 func Pre(attr lmth.Attr, children ...lmth.Node) lmth.Node {
@@ -262,14 +246,6 @@ func Span(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("span", attr, children...)
 }
 
-func Br(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("br", attr, children...)
-}
-
-func Wbr(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("wbr", attr, children...)
-}
-
 func Ins(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("ins", attr, children...)
 }
@@ -282,20 +258,8 @@ func Picture(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("picture", attr, children...)
 }
 
-func Source(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("source", attr, children...)
-}
-
-func Img(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("img", attr, children...)
-}
-
 func Iframe(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("iframe", attr, children...)
-}
-
-func Embed(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("embed", attr, children...)
 }
 
 func Object(attr lmth.Attr, children ...lmth.Node) lmth.Node {
@@ -310,16 +274,8 @@ func Audio(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("audio", attr, children...)
 }
 
-func Track(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("track", attr, children...)
-}
-
 func Map(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("map", attr, children...)
-}
-
-func Area(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("area", attr, children...)
 }
 
 func Table(attr lmth.Attr, children ...lmth.Node) lmth.Node {
@@ -332,10 +288,6 @@ func Caption(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 
 func Colgroup(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("colgroup", attr, children...)
-}
-
-func Col(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("col", attr, children...)
 }
 
 func Tbody(attr lmth.Attr, children ...lmth.Node) lmth.Node {
@@ -368,10 +320,6 @@ func Form(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 
 func Label(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("label", attr, children...)
-}
-
-func Input(attr lmth.Attr, children ...lmth.Node) lmth.Node {
-	return lmth.Element("input", attr, children...)
 }
 
 func Button(attr lmth.Attr, children ...lmth.Node) lmth.Node {
@@ -448,4 +396,60 @@ func Slot(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 
 func Canvas(attr lmth.Attr, children ...lmth.Node) lmth.Node {
 	return lmth.Element("canvas", attr, children...)
+}
+
+func Area(attr lmth.Attr) lmth.Node {
+	return lmth.Element("area", attr)
+}
+
+func Base(attr lmth.Attr) lmth.Node {
+	return lmth.Element("base", attr)
+}
+
+func Br(attr lmth.Attr) lmth.Node {
+	return lmth.Element("br", attr)
+}
+
+func Col(attr lmth.Attr) lmth.Node {
+	return lmth.Element("col", attr)
+}
+
+func Embed(attr lmth.Attr) lmth.Node {
+	return lmth.Element("embed", attr)
+}
+
+func Hr(attr lmth.Attr) lmth.Node {
+	return lmth.Element("hr", attr)
+}
+
+func Img(attr lmth.Attr) lmth.Node {
+	return lmth.Element("img", attr)
+}
+
+func Input(attr lmth.Attr) lmth.Node {
+	return lmth.Element("input", attr)
+}
+
+func Link(attr lmth.Attr) lmth.Node {
+	return lmth.Element("link", attr)
+}
+
+func Meta(attr lmth.Attr) lmth.Node {
+	return lmth.Element("meta", attr)
+}
+
+func Param(attr lmth.Attr) lmth.Node {
+	return lmth.Element("param", attr)
+}
+
+func Source(attr lmth.Attr) lmth.Node {
+	return lmth.Element("source", attr)
+}
+
+func Track(attr lmth.Attr) lmth.Node {
+	return lmth.Element("track", attr)
+}
+
+func Wbr(attr lmth.Attr) lmth.Node {
+	return lmth.Element("wbr", attr)
 }

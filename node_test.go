@@ -23,7 +23,7 @@ func TestReadme(t *testing.T) {
 		),
 		Ul(lmth.Attr{},
 			lmth.Map(func(s string) lmth.Node {
-				return Li(lmth.Attr{}, lmth.Text(s))
+				return Li(lmth.Attr{}, lmth.Text(s), Img(lmth.Attr{"src": s + ".jpg"}))
 			}, fruits),
 		),
 	)
@@ -31,6 +31,6 @@ func TestReadme(t *testing.T) {
 	var buf bytes.Buffer
 	doc.WriteTo(&buf)
 
-	expected := `<body><h1 class="heading-xl">My web page</h1><p>This is some fruit</p><ul><li>apple</li><li>pear</li></ul></body>`
+	expected := `<body><h1 class="heading-xl">My web page</h1><p>This is some fruit</p><ul><li>apple<img src="apple.jpg"></li><li>pear<img src="pear.jpg"></li></ul></body>`
 	assert(buf.String()).Equal(expected)
 }

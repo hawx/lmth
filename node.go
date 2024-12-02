@@ -5,6 +5,15 @@ import (
 	"text/template"
 )
 
+type nodeType uint8
+
+const (
+	nodeTypeEmpty nodeType = iota
+	nodeTypeText
+	nodeTypeNode
+	nodeTypeMulti
+)
+
 var voidElements = map[string]struct{}{
 	"area":   struct{}{},
 	"base":   struct{}{},
@@ -23,54 +32,52 @@ var voidElements = map[string]struct{}{
 }
 
 func Element(el string, attr Attr, children ...Node) Node {
-	return Node{el: el, attr: attr, children: children}
+	return Node{nodeType: nodeTypeNode, data: el, attr: attr, nodes: children}
 }
 
 func Text(s string) Node {
-	return Node{text: template.HTMLEscapeString(s)}
+	return Node{nodeType: nodeTypeText, data: template.HTMLEscapeString(s)}
 }
 
 func RawText(s string) Node {
-	return Node{text: s}
+	return Node{nodeType: nodeTypeText, data: s}
 }
 
 type Node struct {
-	nodes []Node
-	// or
-	text string
-	// or
-	el       string
+	nodeType nodeType
+	data     string
 	attr     Attr
-	children []Node
+	nodes    []Node
 }
 
 func (n Node) internWriteTo(w *errWriter) {
-	if n.text != "" {
-		w.Write([]byte(n.text))
-		return
-	}
+	switch n.nodeType {
+	case nodeTypeEmpty:
+		//
 
-	if len(n.nodes) > 0 {
+	case nodeTypeText:
+		w.Write([]byte(n.data))
+
+	case nodeTypeNode:
+		w.Write([]byte{'<'})
+		w.Write([]byte(n.data))
+		n.attr.internWriteTo(w)
+		w.Write([]byte{'>'})
+
+		if _, ok := voidElements[n.data]; !ok {
+			for _, child := range n.nodes {
+				child.internWriteTo(w)
+			}
+
+			w.Write([]byte{'<', '/'})
+			w.Write([]byte(n.data))
+			w.Write([]byte{'>'})
+		}
+
+	case nodeTypeMulti:
 		for _, node := range n.nodes {
 			node.internWriteTo(w)
 		}
-
-		return
-	}
-
-	w.Write([]byte{'<'})
-	w.Write([]byte(n.el))
-	n.attr.internWriteTo(w)
-	w.Write([]byte{'>'})
-
-	if _, ok := voidElements[n.el]; !ok {
-		for _, child := range n.children {
-			child.internWriteTo(w)
-		}
-
-		w.Write([]byte{'<', '/'})
-		w.Write([]byte(n.el))
-		w.Write([]byte{'>'})
 	}
 }
 

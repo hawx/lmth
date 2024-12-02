@@ -13,6 +13,7 @@ func TestReadme(t *testing.T) {
 	assert := assert.Wrap(t)
 
 	fruits := []string{"apple", "pear"}
+	disabled := true
 
 	doc := Html(lmth.Attr{},
 		Head(lmth.Attr{},
@@ -31,12 +32,16 @@ func TestReadme(t *testing.T) {
 					return Li(lmth.Attr{}, lmth.Text(s), Img(lmth.Attr{"src": s + ".jpg"}))
 				}, fruits),
 			),
+			lmth.Toggle(!disabled, P(lmth.Attr{"class": "help"},
+				lmth.Text("You can save your progress"),
+			)),
+			Button(lmth.Attr{"disabled": lmth.AttrToggleSet(disabled)}, lmth.Text("Save")),
 		),
 	)
 
 	var buf bytes.Buffer
 	doc.WriteTo(&buf)
 
-	expected := `<html><head><title>A test page</title><style>body > h1 { font-weight: 100px; }</style></head><body><h1 class="heading-xl">My web page</h1><p>This is some fruit</p><ul><li>apple<img src="apple.jpg"></li><li>pear<img src="pear.jpg"></li></ul></body></html>`
+	expected := `<html><head><title>A test page</title><style>body > h1 { font-weight: 100px; }</style></head><body><h1 class="heading-xl">My web page</h1><p>This is some fruit</p><ul><li>apple<img src="apple.jpg"></li><li>pear<img src="pear.jpg"></li></ul><button disabled>Save</button></body></html>`
 	assert(buf.String()).Equal(expected)
 }

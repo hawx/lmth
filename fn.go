@@ -5,5 +5,13 @@ func Map[T any](f func(T) Node, ts []T) Node {
 	for i, t := range ts {
 		nodes[i] = f(t)
 	}
-	return Node{nodes: nodes}
+	return Node{nodeType: nodeTypeMulti, nodes: nodes}
+}
+
+func Toggle(on bool, node Node) Node {
+	if !on {
+		node.nodeType = nodeTypeEmpty
+	}
+
+	return node
 }

@@ -1,8 +1,8 @@
 package lmth
 
 import (
-	"html/template"
 	"io"
+	"text/template"
 )
 
 var voidElements = map[string]struct{}{
@@ -27,6 +27,10 @@ func Element(el string, attr Attr, children ...Node) Node {
 }
 
 func Text(s string) Node {
+	return Node{text: template.HTMLEscapeString(s)}
+}
+
+func RawText(s string) Node {
 	return Node{text: s}
 }
 
@@ -42,7 +46,7 @@ type Node struct {
 
 func (n Node) internWriteTo(w *errWriter) {
 	if n.text != "" {
-		w.Write([]byte(template.HTMLEscapeString(n.text)))
+		w.Write([]byte(n.text))
 		return
 	}
 

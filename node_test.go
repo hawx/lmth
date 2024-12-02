@@ -14,23 +14,29 @@ func TestReadme(t *testing.T) {
 
 	fruits := []string{"apple", "pear"}
 
-	doc := Body(lmth.Attr{},
-		H1(lmth.Attr{"class": "heading-xl"},
-			lmth.Text("My web page"),
+	doc := Html(lmth.Attr{},
+		Head(lmth.Attr{},
+			Title(lmth.Attr{}, lmth.Text("A test page")),
+			Style(lmth.Attr{}, lmth.RawText(`body > h1 { font-weight: 100px; }`)),
 		),
-		P(lmth.Attr{},
-			lmth.Text("This is some fruit"),
-		),
-		Ul(lmth.Attr{},
-			lmth.Map(func(s string) lmth.Node {
-				return Li(lmth.Attr{}, lmth.Text(s), Img(lmth.Attr{"src": s + ".jpg"}))
-			}, fruits),
+		Body(lmth.Attr{},
+			H1(lmth.Attr{"class": "heading-xl"},
+				lmth.Text("My web page"),
+			),
+			P(lmth.Attr{},
+				lmth.Text("This is some fruit"),
+			),
+			Ul(lmth.Attr{},
+				lmth.Map(func(s string) lmth.Node {
+					return Li(lmth.Attr{}, lmth.Text(s), Img(lmth.Attr{"src": s + ".jpg"}))
+				}, fruits),
+			),
 		),
 	)
 
 	var buf bytes.Buffer
 	doc.WriteTo(&buf)
 
-	expected := `<body><h1 class="heading-xl">My web page</h1><p>This is some fruit</p><ul><li>apple<img src="apple.jpg"></li><li>pear<img src="pear.jpg"></li></ul></body>`
+	expected := `<html><head><title>A test page</title><style>body > h1 { font-weight: 100px; }</style></head><body><h1 class="heading-xl">My web page</h1><p>This is some fruit</p><ul><li>apple<img src="apple.jpg"></li><li>pear<img src="pear.jpg"></li></ul></body></html>`
 	assert(buf.String()).Equal(expected)
 }

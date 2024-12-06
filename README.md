@@ -22,8 +22,4 @@ doc := elements.Body(lmth.Attr{},
 doc.WriteTo(os.Stdout)
 ```
 
-This is very TODO-level at the moment. Outstanding things are:
-
-- [ ] handle attributes with no value (e.g. `selected`)
-- [ ] escaping?
-- [ ] a better way to model attributes?
+This is very TODO-level at the moment.

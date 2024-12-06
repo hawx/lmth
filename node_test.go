@@ -7,6 +7,7 @@ import (
 	"hawx.me/code/assert"
 	"hawx.me/code/lmth"
 	. "hawx.me/code/lmth/elements"
+	"hawx.me/code/lmth/escape"
 )
 
 func TestReadme(t *testing.T) {
@@ -29,7 +30,7 @@ func TestReadme(t *testing.T) {
 			),
 			Ul(lmth.Attr{},
 				lmth.Map(func(s string) lmth.Node {
-					return Li(lmth.Attr{}, lmth.Text(s), Img(lmth.Attr{"src": s + ".jpg"}))
+					return Li(lmth.Attr{}, lmth.Text(s), Img(lmth.Attr{"src": escape.Attr(s) + ".jpg"}))
 				}, fruits),
 			),
 			lmth.Toggle(!disabled, P(lmth.Attr{"class": "help"},

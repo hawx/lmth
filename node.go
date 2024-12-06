@@ -31,18 +31,22 @@ var voidElements = map[string]struct{}{
 	"wbr":    struct{}{},
 }
 
+// Element creates a [Node] representing a HTML element.
 func Element(el string, attr Attr, children ...Node) Node {
 	return Node{nodeType: nodeTypeNode, data: el, attr: attr, nodes: children}
 }
 
+// Text creates a [Node] representing text, HTML escaping is applied.
 func Text(s string) Node {
 	return Node{nodeType: nodeTypeText, data: template.HTMLEscapeString(s)}
 }
 
+// RawText creates a [Node] representing text, with no escaping. Be careful.
 func RawText(s string) Node {
 	return Node{nodeType: nodeTypeText, data: s}
 }
 
+// A Node represents some HTML structure.
 type Node struct {
 	nodeType nodeType
 	data     string
@@ -81,6 +85,7 @@ func (n Node) internWriteTo(w *errWriter) {
 	}
 }
 
+// WriteTo writes the [Node] to w.
 func (n Node) WriteTo(w io.Writer) (int64, error) {
 	ew := &errWriter{w: w}
 	n.internWriteTo(ew)

@@ -17,6 +17,8 @@ func (d *doctypeWriter) WriteTo(w io.Writer) (int64, error) {
 	return total, err
 }
 
+// Doctype returns an io.WriterTo that writes "<!DOCTYPE html>" before the
+// [Node].
 func Doctype(node Node) io.WriterTo {
 	return &doctypeWriter{w: node}
 }

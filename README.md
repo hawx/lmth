@@ -1,4 +1,4 @@
-# lmth
+# lmth ([pkg.go.dev](https://pkg.go.dev/hawx.me/code/lmth))
 
 Function based HTML templating for Go. Clearly inspired by Elm, etc.
 

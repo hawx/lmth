@@ -3,6 +3,7 @@ package lmth
 import (
 	"maps"
 	"slices"
+	"strings"
 
 	"hawx.me/code/lmth/escape"
 )
@@ -36,6 +37,7 @@ const (
 	AttrUnset = attrToggle(false)
 )
 
+// RawAttr will cause the string to be written verbatim as the attribute value.
 type RawAttr string
 
 // Attr contains HTML attributes to write. Use [escape.Attr] if you are passing
@@ -65,7 +67,7 @@ func (a Attr) internWriteTo(w *errWriter) {
 
 		case string:
 			w.Write([]byte{'=', '"'})
-			if _, ok := urlAttrs[k]; ok {
+			if attrTypeURL(k) {
 				w.Write([]byte(escape.URL(v)))
 			} else {
 				w.Write([]byte(escape.Attr(v)))
@@ -101,4 +103,23 @@ func AttrToggle(on bool, value string) any {
 	} else {
 		return AttrUnset
 	}
+}
+
+func attrTypeURL(name string) bool {
+	// copy 'html/template' and strip /^data-/ and /.*:/ to apply these rules to
+	// more
+	if strings.HasPrefix(name, "data-") {
+		name = name[5:]
+	} else if before, after, ok := strings.Cut(name, ":"); ok {
+		if before == "xmlns" {
+			return true
+		}
+		name = after
+	}
+
+	_, ok := urlAttrs[name]
+
+	// copy the heuristic to check for /src|uri|url/ as used by
+	// 'html/template', it is sensible
+	return ok || strings.Contains(name, "src") || strings.Contains(name, "uri") || strings.Contains(name, "url")
 }

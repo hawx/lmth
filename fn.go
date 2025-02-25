@@ -11,7 +11,7 @@ func Map[T any](f func(T) Node, ts []T) Node {
 }
 
 // Map2 returns a [Node] that contains the result of calling f for every element
-// of ts.
+// and index of ts.
 func Map2[T any](f func(int, T) Node, ts []T) Node {
 	nodes := make([]Node, len(ts))
 	for i, t := range ts {
@@ -29,6 +29,7 @@ func Toggle(on bool, node Node) Node {
 	return node
 }
 
+// Join returns a [Node] that writes nodes in sequence.
 func Join(nodes ...Node) Node {
 	return Node{nodeType: nodeTypeMulti, nodes: nodes}
 }

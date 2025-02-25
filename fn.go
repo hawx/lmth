@@ -10,6 +10,16 @@ func Map[T any](f func(T) Node, ts []T) Node {
 	return Node{nodeType: nodeTypeMulti, nodes: nodes}
 }
 
+// Map2 returns a [Node] that contains the result of calling f for every element
+// of ts.
+func Map2[T any](f func(int, T) Node, ts []T) Node {
+	nodes := make([]Node, len(ts))
+	for i, t := range ts {
+		nodes[i] = f(i, t)
+	}
+	return Node{nodeType: nodeTypeMulti, nodes: nodes}
+}
+
 // Toggle will hide the node from being written if on is false.
 func Toggle(on bool, node Node) Node {
 	if !on {
@@ -17,4 +27,8 @@ func Toggle(on bool, node Node) Node {
 	}
 
 	return node
+}
+
+func Join(nodes ...Node) Node {
+	return Node{nodeType: nodeTypeMulti, nodes: nodes}
 }

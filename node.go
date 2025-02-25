@@ -15,20 +15,20 @@ const (
 )
 
 var voidElements = map[string]struct{}{
-	"area":   struct{}{},
-	"base":   struct{}{},
-	"br":     struct{}{},
-	"col":    struct{}{},
-	"embed":  struct{}{},
-	"hr":     struct{}{},
-	"img":    struct{}{},
-	"input":  struct{}{},
-	"link":   struct{}{},
-	"meta":   struct{}{},
-	"param":  struct{}{},
-	"source": struct{}{},
-	"track":  struct{}{},
-	"wbr":    struct{}{},
+	"area":   {},
+	"base":   {},
+	"br":     {},
+	"col":    {},
+	"embed":  {},
+	"hr":     {},
+	"img":    {},
+	"input":  {},
+	"link":   {},
+	"meta":   {},
+	"param":  {},
+	"source": {},
+	"track":  {},
+	"wbr":    {},
 }
 
 // Element creates a [Node] representing a HTML element.
